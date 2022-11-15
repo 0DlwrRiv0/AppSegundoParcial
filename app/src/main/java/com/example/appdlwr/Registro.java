@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,7 @@ import java.io.OutputStreamWriter;
 
 public class Registro extends AppCompatActivity {
     EditText nomId, userId, contraId;
-    private Button Registrar;
+    private Button Registrar, ButtonLogin;
     byte[] byt = null;
     String ContrasenaD;
 
@@ -37,9 +38,16 @@ public class Registro extends AppCompatActivity {
         userId = (EditText) (findViewById(R.id.usuarioId));
         contraId = (EditText) (findViewById(R.id.contraseñaId));
 
+        ButtonLogin = findViewById(R.id.ButtonLogin);
+        ButtonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentL = new Intent(Registro.this, Login.class);
+                startActivity(intentL);
+            }
+        });
 
     }
-
 
     public boolean validar() {
         boolean retorno = true;

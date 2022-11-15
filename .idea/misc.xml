@@ -11,13 +11,14 @@
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/drawable/ic_email.xml" value="0.1" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/drawable/ic_password.xml" value="0.1" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/drawable/ic_phone.xml" value="0.1" />
-        <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_acceso.xml" value="0.1" />
+        <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_acceso.xml" value="0.25" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_archivos.xml" value="0.11119554204660588" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_digest.xml" value="0.1" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_json.xml" value="0.1" />
-        <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_list_view.xml" value="0.1" />
+        <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_list_view.xml" value="0.33" />
+        <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_listas.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_main.xml" value="0.21041666666666667" />
+        <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_my_adapter.xml" value="0.11119554204660588" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_my_info.xml" value="0.1" />
         <entry key="..\:/Users/Dela/Documents/AppDlwr/app/src/main/res/layout/activity_my_info1.xml" value="0.1" />
