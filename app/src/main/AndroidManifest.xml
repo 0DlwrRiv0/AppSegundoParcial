@@ -14,31 +14,13 @@
         android:theme="@style/Theme.AppDlwr"
         tools:targetApi="31">
         <activity
-            android:name=".Olvide"
+            android:name=".ListView"
             android:exported="false" />
         <activity
-            android:name=".MyInfo1"
+            android:name=".Menu"
             android:exported="false" />
         <activity
-            android:name=".MyAdapter"
-            android:exported="false" />
-        <activity
-            android:name=".ListViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Archivos"
-            android:exported="false" />
-        <activity
-            android:name=".Acceso"
-            android:exported="false" />
-        <activity
-            android:name=".MyInfo"
-            android:exported="false" />
-        <activity
-            android:name=".Digest"
-            android:exported="false" />
-        <activity
-            android:name=".JSON"
+            android:name=".OlvideContra"
             android:exported="false" />
         <activity
             android:name=".Registro"

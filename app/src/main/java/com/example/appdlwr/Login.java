@@ -4,110 +4,147 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
+import com.example.appdlwr.des.MyDesUtil;
+import com.example.appdlwr.json.MyInfo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.File;
-import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Login extends AppCompatActivity {
 
-    private Button buttonRegistro;
-    private Button buttonAcceder;
-    private Button buttonOlvide;
-    EditText user;
-    EditText contra;
+    public static final String KEY = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
+    private String testClaro = "Hola :D";
+    private String testDesCifrado;
+    public String correo;
+    public String mensaje;
+    public static List<MyInfo> list;
+    public static String TAG = "mensaje";
+    public static String TOG = "error";
+    public static String json = null;
+    public static String usr,pswd;
+    private Button btnAcceder, btnRegistrate, btnOlvide;
+    public MyDesUtil myDesUtil= new MyDesUtil().addStringKeyBase64(KEY);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        user = findViewById(R.id.usuarioId);
-        contra = findViewById(R.id.contraseñaId);
-
-        Button botonA = findViewById(R.id.btn_a);
-        botonA.setOnClickListener(new View.OnClickListener(){
+        btnAcceder = findViewById(R.id.buttonAcceder);
+        btnRegistrate = findViewById(R.id.buttonRegistro);
+        btnOlvide = findViewById(R.id.buttonOlvide);
+        EditText usuario = findViewById(R.id.user);
+        EditText pswds = findViewById(R.id.mail);
+        Read();
+        json2List(json);
+        if (json == null || json.length() == 0){
+            btnAcceder.setEnabled(false);
+            btnOlvide.setEnabled(false);
+        }
+        btnAcceder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View view) {
+                usr = String.valueOf(usuario.getText());
+                pswd = String.valueOf(pswds.getText());
+                acceso(usr , pswd);
+            }
+        });
+        btnRegistrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, Registro.class);
+                startActivity(intent);
+            }
+        });
+        btnOlvide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, OlvideContra.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public boolean Read(){
+        if(!isFileExits()){
+            return false;
+        }
+        File file = getFile();
+        FileInputStream fileInputStream = null;
+        byte[] bytes = null;
+        bytes = new byte[(int)file.length()];
+        try {
+            fileInputStream = new FileInputStream(file);
+            fileInputStream.read(bytes);
+            json=new String(bytes);
+            json= myDesUtil.desCifrar(json);
+            Log.d(TAG,json);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public void json2List( String json )
+    {
+        Gson gson = null;
+        String mensaje = null;
+        if (json == null || json.length() == 0)
+        {
 
-                String mensaje = "";
-
-                if("".equals(String.valueOf(user.getText())) || "".equals(String.valueOf(contra.getText()))){
-                    Toast.makeText(getApplicationContext(), "Llena todos los campos", Toast.LENGTH_LONG).show();
-                } else{
-                    try {
-
-                        Digest digest = new Digest();
-                        byte[] txtByte = digest.createSha1(user.getText().toString() + contra.getText().toString());
-                        String Sha1Password1 = digest.bytesToHex(txtByte);
-
-                        JSON json = new JSON();
-
-                        boolean BucleArchivo = true;
-                        int x = 1;
-                        while (BucleArchivo) {
-                            File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + x + ".txt");
-                            if(Cfile.exists()) {
-                                BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
-                                String lineaTexto = file.readLine();
-                                file.close();
-
-                                MyInfo datos = json.leerJson(lineaTexto);
-                                String Sha1Password2 = datos.getContraseñaId();
-
-                                if (Sha1Password1.equals(Sha1Password2)) {
-                                    mensaje = "¡Bienvenido! ";
-                                    BucleArchivo = false;
-                                } else {
-                                    x = x + 1;
-                                }
-                            }else{
-                                mensaje = "No se encontró el usuario";
-                                BucleArchivo = false;
-                            }
-                        }
-
-                        if("¡Bienvenido! ".equals(mensaje)){
-                            Toast.makeText(Login.this, mensaje, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login.this, Acceso.class);
-                            startActivity(intent);
-                            intent.putExtra("archivo", x);
-                            startActivity(intent);
-                        }
-
-                        Toast.makeText(Login.this, mensaje, Toast.LENGTH_SHORT).show();
-
-                    } catch (Exception e) {
-                        mensaje = "Por favor, intentelo de nuevo";
-                        Toast.makeText(Login.this, mensaje, Toast.LENGTH_SHORT).show();
-
-                    }
+            Toast.makeText(getApplicationContext(), "Error json null or empty", Toast.LENGTH_LONG).show();
+            return;
+        }
+        gson = new Gson();
+        Type listType = new TypeToken<ArrayList<MyInfo>>(){}.getType();
+        list = gson.fromJson(json, listType);
+        if (list == null || list.size() == 0 )
+        {
+            Toast.makeText(getApplicationContext(), "Error list is null or empty", Toast.LENGTH_LONG).show();
+            return;
+        }
+    }
+    private File getFile( )
+    {
+        return new File( getDataDir() , Registro.archivo );
+    }
+    private boolean isFileExits( )
+    {
+        File file = getFile( );
+        if( file == null )
+        {
+            return false;
+        }
+        return file.isFile() && file.exists();
+    }
+    public void acceso(String usr , String pswd){
+        int i=0;
+        if(usr.equals("")||pswd.equals("")){
+            Toast.makeText(getApplicationContext(), "Faltan campos por llenar", Toast.LENGTH_LONG).show();
+        }else{
+            for(MyInfo myInfo : list){
+                if(myInfo.getUser().equals(usr)&&myInfo.getPassword().equals(pswd)){
+                    Intent intent = new Intent(Login.this, Menu.class);
+                    intent.putExtra("Objeto", myInfo);
+                    startActivity(intent);
+                    i=1;
                 }
-
             }
-        });
-
-        buttonRegistro = findViewById(R.id.btn_r);
-        buttonRegistro.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(Login.this, Registro.class));
+            if(i==0){
+                Toast.makeText(getApplicationContext(), "Campos incorrectos", Toast.LENGTH_LONG).show();
             }
-        });
-        buttonOlvide = findViewById(R.id.btn_o);
-        buttonOlvide.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(Login.this, Olvide.class));
-            }
-        });
+        }
     }
 }

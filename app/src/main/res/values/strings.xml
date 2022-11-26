@@ -1,13 +1,21 @@
 <resources>
     <string name="app_name">AppDlwr</string>
-    <string name="acceder">Acceder</string>
-    <string name="registrarme">Registrarme</string>
-    <string name="olvidec">Olvidé Contraseña</string>
     <string name="usuario">Usuario</string>
-    <string name="contraseña">Contraseña</string>
-    <string name="correo">Correo</string>
-    <string name="numTel">Numero Telefonico</string>
-    <string name="fechan">Fecha de nacimiento</string>
-    <string name="sexo">Sexo</string>
-    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="password">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="num">Télefono</string>
+    <string name="rb1">Goodbye, my danish sweetheart</string>
+    <string name="rb2">First love/Late spring</string>
+    <string name="rb3">Should have been me</string>
+    <string name="check1">Femenino</string>
+    <string name="check2">Masculino</string>
+    <string name="switch1">!POP, POP¡</string>
+    <string name="switch2">Califonia girlsss</string>
+    <string name="btn1">Registrate</string>
+    <string name="btn2">Iniciar sesión</string>
+    <string name="btn3">Acceder</string>
+    <string name="btn4">Olvide contraseña</string>
+    <string name="recuperar">Recuperar</string>
+    <string name="Cerrar">Cerrar Sesión</string>
 </resources>
