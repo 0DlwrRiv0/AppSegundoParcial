@@ -10,9 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class Nanai {
-    public static final String TAG = "Saul";
+    public static final String TAG = "Dlwr";
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
-    //Metodos Sha1
     public static byte[] createSha1( String text )
     {
         MessageDigest messageDigest = null;
@@ -59,10 +58,10 @@ public class Nanai {
         }
         return bandera;
     }
-    public static boolean usuarios(List<MyInfo> list, String usr){
+    public static boolean usuarios(List<MyInfo> list, String usr, String correo){
         boolean bandera = false;
         for(MyInfo informacion : list){
-            if(informacion.getUser().equals(usr)){
+            if(informacion.getUser().equals(usr) || informacion.getCorreo().equals(correo)){
                 bandera=true;
             }
         }
@@ -81,4 +80,14 @@ public class Nanai {
         json = null;
     }
 
+    public static void encuentra(String cadena){
+        for(MyInfo info: OlvideContra.list){
+            if(Login.usr.equals(info.getUser())){
+                cadena = "Intenta recordar la contraseña";
+            }else{
+                cadena = "Algo hace falta";
+            }
+        }
+    }
 }
+

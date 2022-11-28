@@ -98,9 +98,9 @@ public class Registro extends AppCompatActivity {
                             Nanai.fillInfo(info);
                             List2Json(info,list);
                         }else{
-                            if(Nanai.usuarios(list,usr)){
-                                Log.d(TAG,"esta ocupado mano");
-                                Toast.makeText(getApplicationContext(), "El nombre de usuario está ocupado, cambialo", Toast.LENGTH_LONG).show();
+                            if(Nanai.usuarios(list,usr, email)){
+                                Log.d(TAG,"Este usuario ya existe");
+                                Toast.makeText(getApplicationContext(), "Nombre ocupado", Toast.LENGTH_LONG).show();
                             }else{
                                 Nanai.fillInfo(info);
                                 info.setContras(lista);
@@ -188,8 +188,7 @@ public class Registro extends AppCompatActivity {
         }
         return file.isFile() && file.exists();
     }
-    public void json2List( String json)
-    {
+    public void json2List( String json) {
         Gson gson = null;
         String mensaje = null;
         if (json == null || json.length() == 0)
