@@ -36,13 +36,13 @@ public class OlvideContra extends AppCompatActivity {
     public static List<MyInfo> list;
     public static String json = null;
     public static String TAG = "mensaje";
+    public static String TOG = "error";
     public static String cadena= null;
     public MyDesUtil myDesUtil= new MyDesUtil().addStringKeyBase64(Registro.KEY);
     public String usr=null;
     public String correo,mensaje;
     EditText usuario,email;
     Button button;
-    public static String TOG = "error";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +55,9 @@ public class OlvideContra extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 usr = String.valueOf(usuario.getText());
-                correo = String.valueOf(email.getText());
-                if(usr.equals("")&&email.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Llena el campo de Usuario", Toast.LENGTH_LONG).show();
+                correo= String.valueOf(email.getText());
+                if(usr.equals("")&&email.equals("")){
+                    Toast.makeText(getApplicationContext(), "Complete algún campo", Toast.LENGTH_LONG).show();
                 }else{
                     int i=0;
                     int j=0;
@@ -66,7 +66,7 @@ public class OlvideContra extends AppCompatActivity {
                             correo=inf.getCorreo();
                             String contra=inf.getPassword();
                             String nueva = String.format("%d",(int)(Math.random()*1000));
-                            mensaje="<html><h1>Registro para una app????</h1></html>";
+                            mensaje="<html><body><h1>Su contraseña era "+contra+" ahora es "+nueva+"</h1></body></html>";
                             correo=myDesUtil.cifrar(correo);
                             mensaje=myDesUtil.cifrar(mensaje);
                             list.get(j).setPassword(nueva);
@@ -83,20 +83,22 @@ public class OlvideContra extends AppCompatActivity {
                         Log.i(TAG,mensaje);
                         if( sendInfo( correo,mensaje ) )
                         {
-                            Toast.makeText(getBaseContext() , "El texto ha sido enviado correctamente" , Toast.LENGTH_LONG );
+                            Toast.makeText(getBaseContext() , "Se envío el texto" , Toast.LENGTH_LONG ).show();
                             return;
                         }
-                        Toast.makeText(getBaseContext() , "Error en el envío" , Toast.LENGTH_LONG );
+                        Toast.makeText(getBaseContext() , "Error en el envío" , Toast.LENGTH_LONG ).show();
                     }else{
                         if(i==0){
                             Log.i(TAG,"no hay usuarios");
-                            Toast.makeText(getBaseContext() , "No hay usuarios en el sistema" , Toast.LENGTH_LONG );
+                            Toast.makeText(getBaseContext() , "No existen usuarios" , Toast.LENGTH_LONG ).show();
                             return;
                         }
                     }
                 }
             }
         });
+
+
     }
     public boolean sendInfo( String correo ,String mensaje)
     {
@@ -122,7 +124,8 @@ public class OlvideContra extends AppCompatActivity {
         }
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONObject response)
+            {
                 Log.i(TAG, response.toString());
             }
         } , new  Response.ErrorListener(){
